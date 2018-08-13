@@ -201,4 +201,3 @@ requirepass yourpassword
 
 service redis start
 ~~~
-
