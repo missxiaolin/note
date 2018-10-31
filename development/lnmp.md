@@ -116,6 +116,18 @@ ln -s /opt/remi/php72/root/bin/php-config /usr/local/bin/php-config && \
 ln -s /opt/remi/php72/root/sbin/php-fpm /usr/local/sbin/php-fpm
 ~~~
 
+### 手动编译swoole
+~~~bash
+yum install libnghttp2-devel openssl-devel hiredis-devel
+
+wget https://github.com/swoole/swoole-src/archive/v4.2.3.zip
+unzip v4.2.3.zip
+cd swoole-src-4.2.3
+phpize
+./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2
+make
+~~~
+
 ### 修改php-fpm组合用户
 ~~~
 vim /etc/opt/remi/php72/php-fpm.d/www.conf
