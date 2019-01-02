@@ -18,7 +18,7 @@ LABEL maintainer="limx <limingxin@swoft.org>" version="1.0"
 ENV SWOOLE_VERSION=4.2.10 \
     DOCKER_ENVIRONMENT=true \
     #  install and remove building packages
-    PHPIZE_DEPS="autoconf dpkg-dev dpkg file g++ gcc libc-dev make php7-dev php7-pear pkgconf re2c pcre-dev zlib-dev"
+    PHPIZE_DEPS="autoconf dpkg-dev dpkg file g++ gcc libc-dev make php7-dev php7-pear pkgconf re2c pcre-dev zlib-dev libtool automake"
 
 # update
 RUN set -ex \
@@ -43,6 +43,22 @@ RUN set -ex \
         && make -s -j$(nproc) && make install \
     ) \
     && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
+    && echo "swoole.use_shortname = 'Off'" >> /etc/php7/conf.d/swoole.ini \
+
+    # php extension:grpc
+    && cd /tmp \
+    && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc \
+    && ( \
+        cd grpc \
+        && git submodule update --init \
+        && make && make install \
+        && cd src/php/ext/grpc \
+        && phpize \
+        && ./configure \
+        && make && make install \
+        && echo "extension=grpc.so" > /etc/php7/conf.d/grpc.ini \
+    ) \
+    && rm -rf /usr/local/bin/grpc* \
 
     # install composer
     && cd /tmp \
@@ -63,9 +79,8 @@ COPY . /opt/www
 WORKDIR /opt/www
 
 RUN composer install --no-dev \
-    && composer dump-autoload -o \
-    && php /opt/www/bin/swoft app:init
+    && composer dump-autoload -o
 
 EXPOSE 8080 8099
 
-ENTRYPOINT ["php", "/opt/www/bin/swoft", "start"]
+ENTRYPOINT ["php", "/opt/www/bin/grpc-server.php", "start"]
