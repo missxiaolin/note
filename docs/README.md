@@ -16,6 +16,6 @@
 
 - JS: [electron](js/electron.md) | [node](js/node.md) | [npm](js/npm.md)
 
-- go: [go](go/go.md)
+- go: [modules](go/go.md)
 
 - 错误集锦: [错误集锦](error/error.md)
