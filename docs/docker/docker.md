@@ -188,3 +188,36 @@ jenkins:
 - [grpc](https://github.com/limingxinleo/note/blob/master/docs/docker/Dockerfiles/grpc.Dockerfile)
 - [swoft](https://github.com/limingxinleo/note/blob/master/docs/docker/Dockerfiles/swoft.Dockerfile)
 - [h5](https://github.com/limingxinleo/note/blob/master/docs/docker/Dockerfiles/web.Dockerfile)
+
+## docker之删除none镜像
+
+~~~
+$ docker stop $(docker ps -a | grep "Exited" | awk '{print $1 }')   //停止容器
+1b7067e19d6f
+a840f345c423
+9d74eff1c4e4
+17d361107a21
+dd51ead96da7
+ad0032609294
+95e713ab1bdf
+$ docker rm $(docker ps -a | grep "Exited" | awk '{print $1 }')    //删除容器
+1b7067e19d6f
+a840f345c423
+9d74eff1c4e4
+17d361107a21
+dd51ead96da7
+ad0032609294
+95e713ab1bdf
+$ docker rmi $(docker images | grep "none" | awk '{print $3}')    //删除镜像
+Deleted: sha256:168b258ceea3f5ee9d7f066e04c89c4858f0e337687f18b5939a78aea13ea6c8
+Deleted: sha256:d3984014bcbe856f569dcade31ce70aae8cc5ead3806e47ae08229467c9ed3ca
+Deleted: sha256:b2c5d34941c646a1962d2acd9ff968708495a82916c33797f5fb3d94de403c6d
+Deleted: sha256:5a23f5ad9107bb1111f32d490982e2146cf0811c8b75c7a6cd67ca45fc2f50dd
+Deleted: sha256:392d616344b17b0bb7b8ad46cc9a8c6f5ab4be8bd59c3d5973016e8759a1668c
+Deleted: sha256:33fbf9c999e8beac51b184a0f2baeaf1a2b99b10c4cc1f654075af42779fb62e
+Deleted: sha256:b3535d64be668cd7e3389c4da224ae6e3aaedadff05ed24f428fc83e96c65a03
+Deleted: sha256:da47261567b38193ba4894e7c832d9eba78d9cc3a501101ebf5fd7304efef5b9
+Deleted: sha256:b81b2578fd4e803fac0bd416e606362ed14432370088eba8bf5c43a4fca8f7ed
+Deleted: sha256:6f4b2f9fd5be471ac80c599c9616feaaf3952ce8a68d5d8c26645bfaff7aae4a
+Deleted: sha256:480e2b77d27aea6e128db8d3c400f37b74da1b365b0eb663022d7208a9694209
+~~~
