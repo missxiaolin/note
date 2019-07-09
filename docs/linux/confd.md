@@ -16,6 +16,8 @@ chmod +x /usr/local/bin/confd
  
 # 验证是否安装成功
 
+confd --version
+
 ~~~
 
 ### 与etcd交互
