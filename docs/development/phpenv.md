@@ -6,7 +6,7 @@
 
 ```shell
 curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-echo ~/.phpenv/bin
+cd ~/.phpenv/bin
 sudo ln -s $PWD/phpenv /usr/local/bin/phpenv
 ```
 
@@ -16,7 +16,7 @@ sudo ln -s $PWD/phpenv /usr/local/bin/phpenv
 
 ```shell
 sudo apt install libxml2-dev libssl-dev libsqlite3-dev zlib1g-dev libbz2-dev libcurl4-openssl-dev libpng-dev \
-libjpeg-dev libonig-dev libedit-dev libreadline-dev libtidy-dev libxslt-dev libzip-dev autoconf
+libjpeg-dev libonig-dev libedit-dev libreadline-dev libtidy-dev libxslt-dev libzip-dev autoconf pkg-config
 ```
 
 - 安装PHP
